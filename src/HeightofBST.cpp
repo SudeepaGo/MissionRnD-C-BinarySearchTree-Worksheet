@@ -42,15 +42,53 @@ struct node{
 
 
 int get_height(struct node *root){
+	int lcount = 0,rcount=0;
+	
+	if (root == NULL)
+		return 0;
+	else
+	{
+		/* compute the depth of left and right subtrees */
+		lcount = get_height(root->left);
+		rcount = get_height(root->right);
 
-	return 0;
+		/* return the greater depth */
+		if (lcount >= rcount)
+			return(lcount + 1);
+		else return(rcount + 1);
+	}
 }
 
 int get_left_subtree_sum(struct node *root){
-	return 0;
+	if (root==NULL)
+	return -1;
+	int sum = 0;
+	while (root->left != NULL)
+	{
+		if (root->left == NULL)
+			root = root->right;
+		else
+			root = root->left;
+			
+		sum = sum + root->data;
+	}
+	return sum;
 }
 
 int get_right_subtree_sum(struct node *root){
-	return 0;
+	if (root == NULL)
+		return -1;
+	int sum = 0;
+	
+	while (root->right != NULL)
+	{
+		if (root->right == NULL)
+			root = root->left;
+		else
+			root = root->right;
+			
+		sum = sum + root->data;
+	}
+	return sum;
 }
 

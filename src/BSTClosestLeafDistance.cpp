@@ -33,6 +33,8 @@ Return -1 ,for Invalid Inputs
 #include <stdlib.h>
 #include <stdio.h>
 
+int get_distance(struct node*);
+
 struct node{
   struct node * left;
   int data;
@@ -41,5 +43,26 @@ struct node{
 
 int get_closest_leaf_distance(struct node *root, struct node *temp)
 {
-  return -1;
+	if (root==NULL || temp==NULL)
+       return -1;
+	int d = get_distance(temp);
+	return d-1;
+}
+
+int get_distance(struct node *root){
+	int lcount = 0, rcount = 0;
+
+	if (root == NULL)
+		return 0;
+	else
+	{
+		/* compute the depth of left and right subtrees */
+		lcount = get_distance(root->left);
+		rcount = get_distance(root->right);
+
+		/* return the greater depth */
+		if (lcount >= rcount)
+			return(lcount + 1);
+		else return(rcount + 1);
+	}
 }

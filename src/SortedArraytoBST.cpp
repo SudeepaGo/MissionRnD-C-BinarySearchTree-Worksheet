@@ -35,7 +35,8 @@ struct node{
 
 
 struct node * convert_array_to_bst(int *arr, int len){
-	
+	if (arr==NULL || len<=0)
 	return NULL;
+	struct node *root = (struct node*)malloc(sizeof(struct node));
 }
 

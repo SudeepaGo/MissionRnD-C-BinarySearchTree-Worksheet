@@ -8,7 +8,7 @@ Ex : If Bst is
    / \
   4  10                      <-- Copy this row next from 10 and next 4 ..
  / \   \
-1   5   15                   <-- Order her is 15 ,5 ,1 
+1   5   15                   <-- Order here is 15 ,5 ,1 
           \
           17
 

@@ -22,14 +22,30 @@ struct node{
 	struct node *right;
 };
 
-
 void inorder(struct node *root, int *arr){
+	if (root == NULL||arr==NULL)
+		return;
+
+		inorder(root->left, arr);
+		*(arr+0) = root->data;
+		inorder(root->right, arr);
 	
 }
 void preorder(struct node *root, int *arr){
+	if (root == NULL || arr == NULL)
+		return;
+
+		*(arr+0) = root->data;
+		preorder(root->left, arr);
+		preorder(root->right, arr);
 	
 }
 void postorder(struct node *root, int *arr){
-	
-}
 
+	if (root == NULL || arr==NULL)
+		return;
+
+		postorder(root->left,arr);
+		postorder(root->right, arr);
+		*(arr+0) = root->data;
+}
