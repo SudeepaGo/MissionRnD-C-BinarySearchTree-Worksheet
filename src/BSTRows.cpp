@@ -23,6 +23,9 @@ Note : Return -1 for Invalid Cases .
 #include <stdlib.h>
 #include <stdio.h>
 
+int find_depth(struct node*);
+int storeGivenRow(struct node*, int);
+
 struct node{
 	struct node * left;
 	int data;
@@ -33,5 +36,51 @@ struct node{
 
 int* BSTRighttoLeftRows(struct node* root)
 {
+	
+	if (root==NULL)
     return NULL;
+	int depth = find_depth(root);
+
+	int *arr = (int *)malloc(sizeof(int)*50);
+	int k = 0;
+
+	for (int i = 1; i <= depth; i++)   //Going to each level in the tree
+	{
+		arr[k++]=storeGivenRow(root, i); //Storing the elements of each level
+		
+	}
+	return arr;
+}
+
+int storeGivenRow(struct node *root, int d)
+{
+	if (root == NULL)
+		return -1;
+	if (d == 1)               //Return the value of root if level equal to 1
+		return root->data;
+	else
+	{
+		if (root->right!=NULL)    //Traverse through right node in the given level
+		storeGivenRow(root->right, d - 1);
+		if (root->left!=NULL)      //Traverse through left node in the given level
+		storeGivenRow(root->left, d - 1); 
+	}
+}
+
+//Function to find depth/height of the binary search tree
+int find_depth(struct node *root){
+	int ldepth, rdepth;
+	if (root == NULL)
+		return 0;
+	else
+	{
+		/* compute the depth of left and right subtrees */
+	    ldepth = find_depth(root->left);
+	    rdepth = find_depth(root->right);
+
+		/* return the greater depth */
+		if (ldepth >= rdepth)
+			return(ldepth + 1);
+		else return(rdepth + 1);
+	}
 }

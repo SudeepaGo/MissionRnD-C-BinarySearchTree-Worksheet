@@ -23,29 +23,37 @@ struct node{
 };
 
 void inorder(struct node *root, int *arr){
+	static int k = 0;   //NULL case
 	if (root == NULL||arr==NULL)
 		return;
-
-		inorder(root->left, arr);
-		*(arr+0) = root->data;
-		inorder(root->right, arr);
-	
+	else
+	{
+		inorder(root->left, arr); //Traverse left subtree
+		arr[k++] = root->data;  //Store data in array
+		inorder(root->right, arr); //Traverse right subtree
+	}
 }
+
 void preorder(struct node *root, int *arr){
+	static int k = 0;
 	if (root == NULL || arr == NULL)
 		return;
-
-		*(arr+0) = root->data;
-		preorder(root->left, arr);
-		preorder(root->right, arr);
-	
+	else
+	{
+		arr[k++] = root->data; //Store data in array
+		preorder(root->left, arr); //Traverse left subtree
+		preorder(root->right, arr); //Traverse right subtree
+	}
 }
 void postorder(struct node *root, int *arr){
-
-	if (root == NULL || arr==NULL)
+	static int k = 0;
+	if (root == NULL || arr == NULL)
 		return;
-
-		postorder(root->left,arr);
-		postorder(root->right, arr);
-		*(arr+0) = root->data;
+	else
+	{
+		postorder(root->left, arr); //Traverse left subtree
+		postorder(root->right, arr); //Traverse right subtree
+		arr[k++] = root->data; //Store data in array
+	}
 }
+

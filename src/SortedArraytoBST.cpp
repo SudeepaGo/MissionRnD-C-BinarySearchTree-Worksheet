@@ -27,6 +27,10 @@ Note : Return Null for invalid Inputs
 Note : Donot create a new BST .
 */
 #include <stdlib.h>
+
+struct node *convertToBalBST(int *, int, int);
+struct node *createNode(int);
+
 struct node{
 	struct node * left;
 	int data;
@@ -37,6 +41,33 @@ struct node{
 struct node * convert_array_to_bst(int *arr, int len){
 	if (arr==NULL || len<=0)
 	return NULL;
-	struct node *root = (struct node*)malloc(sizeof(struct node));
+	
+	struct node *root = convertToBalBST(arr,0,len-1);
+	return root;
 }
 
+//Function to convert the elements of sorted array to balanced BST
+struct node *convertToBalBST(int *arr, int start, int end)
+{
+	if (start > end)
+		return NULL;
+	int mid = (start + end) / 2;
+	struct node *root = createNode(arr[mid]); //Recursively take the middle element of the array
+	                                          //and form the bst
+	root->left = convertToBalBST(arr, start, mid - 1); //Traverse through left sub array
+	
+	root->right = convertToBalBST(arr, mid + 1, end); //Traverse through right sub array
+
+	return root;
+}
+
+//Function to create the balanced BST
+struct node *createNode(int num)
+{
+	struct node *new_node = (struct node*)malloc(sizeof(struct node));
+	new_node->data = num;
+	new_node->left = NULL;
+	new_node->right = NULL;
+
+	return new_node;
+}
